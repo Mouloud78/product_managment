@@ -17,7 +17,7 @@ class ProduitsApplicationTests {
 
 	@Test
 	public void testCreateProduit(){
-		Produit prod = new Produit("PC Dell", 2200.500, new Date());
+		Produit prod = new Produit("PC Asus", 1500.500, new Date());
 		produitRepository.save(prod);
 	}
 
@@ -30,7 +30,7 @@ class ProduitsApplicationTests {
 	@Test
 	public void testUpdateProduit(){
 		Produit p = produitRepository.findById(1L).get();
-		p.setPrixProduit(1000.0);
+		p.setPrixProduit(2000.0);
 		produitRepository.save(p);
 	}
 
@@ -39,6 +39,7 @@ class ProduitsApplicationTests {
 		produitRepository.deleteById(1L);
 	}
 
+	@Test
 	public void testListerTousProduits(){
 		List<Produit> prods = produitRepository.findAll();
 		for(Produit p : prods){
