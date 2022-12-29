@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Produit } from '../model/produit.model';
+import { AuthService } from '../services/auth.service';
 import { ProduitService } from '../services/produit.service';
 
 @Component({
@@ -8,27 +9,36 @@ import { ProduitService } from '../services/produit.service';
 })
 export class ProduitsComponent implements OnInit {
 
-   produits? : Produit[];
+    produits? : Produit[]; //un tableau de produits
 
-  constructor(private produitservice:ProduitService) {
-
-   }
+  constructor(private produitService: ProduitService,
+              public authService: AuthService) {
+   //this.produits=[];
+     }
 
   ngOnInit(): void {
-     this.produits = this.produitservice.listeProduit();
+
+    this.chargerProduits();
   }
 
-  //Suppression du produit
-  supprimerProduit(produit: Produit){
-
-    /*Message de suppression*/
-    let conf = confirm("Êtes-vous sûr ?")
-    if(conf){
-
-      this.produitservice.supprimerProduit(produit);
-
-    }
-
+  chargerProduits(){
+    this.produitService.listeProduit().subscribe(prods => {
+      console.log(prods);
+      this.produits = prods;
+      });
   }
+
+supprimerProduit(p: Produit)
+{
+let conf = confirm("Etes-vous sûr ?");
+if (conf)
+  this.produitService.supprimerProduit(p.idProduit).subscribe(() => {
+        console.log("produit supprimé");
+        this.chargerProduits();     
+      
+});
+}
+ 
+ 
 
 }
