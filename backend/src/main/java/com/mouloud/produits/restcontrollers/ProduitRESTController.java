@@ -16,7 +16,7 @@ public class ProduitRESTController {
     ProduitService produitService;
 
     //Afficher tout les produits
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "all", method = RequestMethod.GET)
     public List<Produit> getAllProduits(){
         return produitService.getAllProduits();
     }
